@@ -1,0 +1,14 @@
+if __name__ == '__main__':
+    rs = []
+    for _ in range(int(input())):
+        name = input()
+        score = float(input())
+        rs.append([name, score])
+    
+    lowest = min([ele[1] for ele in rs])
+    second_low = min(list(filter(lambda a: a > lowest, [el[1] for el in rs])))
+    
+    ls = [ele[0] for ele in rs if (ele[1] == second_low)]
+    ls.sort()
+    
+    print("\n".join(ls))
