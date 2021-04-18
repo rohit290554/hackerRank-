@@ -1,0 +1,33 @@
+def applicationPairs(deviceCapacity, foregroundAppList, backgroundAppList):
+    Local_Memory = -sys.maxsize - 1  # assigning a temp var forget the largest assignable value as I dont know the exact value of deviceCapacity
+    sort_foregroundAppList = sorted(foregroundAppList, key=lambda x: x[
+        1])  # using lamba function for sorting so this will take single args and return key for fast and sort code for sorting
+    sort_backgroundAppList = sorted(backgroundAppList, key=lambda x: x[
+        1])  ##using lamba function for sorting so this will take single args and return key for fast and sort code for sorting
+    i = 0  # created int type temp variable for inserting value in 2d array. I will use this as a array[i][j]
+    j = len(
+        sort_backgroundAppList) - 1  # same as I but with pre fixed value to get the location for insert the value. array[i][j]
+    final_output = []  # final out varibale that contain the result
+    while i < len(
+            sort_foregroundAppList) and j >= 0:  # this loop will keeps on run untill left side will becode lower the total length of right side and right 0 or can say RHS = LHS
+        total = sort_foregroundAppList[i][1] + sort_backgroundAppList[j][
+            1]  # get the total addition of both array[i][j] for 1 row coulmn
+        if total > deviceCapacity:
+            j -= 1  # if total is greater then given deviceCapacity
+        else:
+            if Local_Memory <= total:  # if temp assign value is greator then sum of array[i][j]
+                if Local_Memory < total:  # also temp value is higher but not equal to toal addition
+                    final_output = []
+                    Local_Memory = total  # assign the total addition of array[i][j] as temp value insted of   random maxize
+
+                final_output.append([sort_foregroundAppList[i][0], sort_backgroundAppList[j][0]])
+                temp_var = j  # insert the value in final out list
+
+                while temp_var > 0 and sort_backgroundAppList[temp_var][1] == sort_backgroundAppList[temp_var - 1][1]:
+                    final_output.append([sort_foregroundAppList[i][0], sort_backgroundAppList[temp_var - 1][0]])
+                    temp_var -= 1
+            i += 1
+    if not final_output:  # to check for 2d array created or not
+        final_output = [[]]
+
+    return final_output  # i printed but get error so I returned the final output
