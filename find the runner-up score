@@ -1,0 +1,6 @@
+if __name__ == '__main__':
+    n = int(input())
+    arr = map(int, input().split())
+    rs = list(arr)
+    runnerup = max(rs)
+    print(max(list(filter(lambda a: a != runnerup, rs))))
